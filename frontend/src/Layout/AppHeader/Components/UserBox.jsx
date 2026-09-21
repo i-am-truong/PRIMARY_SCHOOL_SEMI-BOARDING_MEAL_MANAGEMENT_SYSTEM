@@ -1,190 +1,115 @@
-import React, { Fragment } from 'react';
-
-import { IoIosCalendar } from 'react-icons/io';
-
-import PerfectScrollbar from 'react-perfect-scrollbar';
-
+import React, { Fragment, useState, useEffect } from 'react';
 import {
   DropdownToggle,
   DropdownMenu,
   Nav,
-  Col,
-  Row,
   Button,
   NavItem,
   NavLink,
-  UncontrolledTooltip,
   UncontrolledButtonDropdown,
 } from 'reactstrap';
-
-import { toast, Bounce } from 'react-toastify';
-
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import 'react-toastify/dist/ReactToastify.css';
-
-import city3 from '../../../assets/utils/images/dropdown-header/city3.jpg';
+import { AuthService } from '../../../services/authService';
 import avatar1 from '../../../assets/utils/images/avatars/1.jpg';
 
-class UserBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: false,
-    };
-  }
+export default function UserBox() {
+  const [currentUser, setCurrentUser] = useState(() => AuthService.getCurrentUser());
 
-  notify2 = () =>
-    (this.toastId = toast(
-      "You don't have any new items in your calendar for today! Go out and play!",
-      {
-        transition: Bounce,
-        closeButton: true,
-        autoClose: 5000,
-        position: 'bottom-center',
-        type: 'success',
-      }
-    ));
+  useEffect(() => {
+    // Sync current user on mount or session change
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+    }
+  }, []);
 
-  render() {
-    return (
-      <Fragment>
-        <div className="header-btn-lg pe-0">
-          <div className="widget-content p-0">
-            <div className="widget-content-wrapper">
-              <div className="widget-content-left">
-                <UncontrolledButtonDropdown>
-                  <DropdownToggle color="link" className="p-0">
-                    <img width={42} className="rounded-circle" src={avatar1} alt="" />
-                    <FontAwesomeIcon className="ms-2 opacity-8" icon={faAngleDown} />
-                  </DropdownToggle>
-                  <DropdownMenu className="rm-pointers dropdown-menu-lg">
-                    <div className="dropdown-menu-header">
-                      <div className="dropdown-menu-header-inner bg-info">
-                        <div
-                          className="menu-header-image opacity-2"
-                          style={{
-                            backgroundImage: 'url(' + city3 + ')',
-                          }}
-                        />
-                        <div className="menu-header-content text-start">
-                          <div className="widget-content p-0">
-                            <div className="widget-content-wrapper">
-                              <div className="widget-content-left me-3">
-                                <img width={42} className="rounded-circle" src={avatar1} alt="" />
-                              </div>
-                              <div className="widget-content-left">
-                                <div className="widget-heading">Alina Mcloughlin</div>
-                                <div className="widget-subheading opacity-8">
-                                  A short profile description
-                                </div>
-                              </div>
-                              <div className="widget-content-right me-2">
-                                <Button className="btn-pill btn-shadow btn-shine" color="focus">
-                                  Logout
-                                </Button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+  const handleLogout = () => {
+    AuthService.clearSession();
+    window.location.hash = '#/login';
+  };
+
+  const displayName = currentUser?.fullName || 'Thu Hà (MGR)';
+  const displayRole = currentUser?.roleName || 'Điều Phối Viên Bán Trú';
+  const roleCode = currentUser?.role || 'MGR';
+
+  const getRoleBadgeColor = (role) => {
+    switch (role) {
+      case 'ADM':
+        return 'danger';
+      case 'MGR':
+        return 'primary';
+      case 'ACC':
+        return 'success';
+      case 'PAR':
+        return 'warning';
+      default:
+        return 'info';
+    }
+  };
+
+  return (
+    <Fragment>
+      <div className="header-btn-lg pe-0">
+        <div className="widget-content p-0">
+          <div className="widget-content-wrapper">
+            <div className="widget-content-left">
+              <UncontrolledButtonDropdown>
+                <DropdownToggle color="link" className="p-0 border-0">
+                  <img width={40} height={40} className="rounded-circle border" src={avatar1} alt={displayName} />
+                  <FontAwesomeIcon className="ms-2 opacity-8" icon={faAngleDown} />
+                </DropdownToggle>
+                <DropdownMenu className="rm-pointers dropdown-menu-lg">
+                  <div className="p-3 border-bottom bg-light">
+                    <div className="d-flex align-items-center">
+                      <img width={42} height={42} className="rounded-circle border me-3" src={avatar1} alt="" />
+                      <div>
+                        <div className="fw-bold text-dark">{displayName}</div>
+                        <span className={`badge rounded-pill bg-${getRoleBadgeColor(roleCode)}-subtle text-${getRoleBadgeColor(roleCode)} border px-2 py-1 small`}>
+                          {roleCode} • {displayRole}
+                        </span>
                       </div>
                     </div>
-                    <div
-                      className="scroll-area-xs"
-                      style={{
-                        height: '150px',
-                      }}
-                    >
-                      <PerfectScrollbar>
-                        <Nav vertical>
-                          <NavItem className="nav-item-header">Activity</NavItem>
-                          <NavItem>
-                            <NavLink href="#">
-                              Chat
-                              <div className="ms-auto badge rounded-pill bg-info">8</div>
-                            </NavLink>
-                          </NavItem>
-                          <NavItem>
-                            <NavLink href="#">Recover Password</NavLink>
-                          </NavItem>
-                          <NavItem className="nav-item-header">My Account</NavItem>
-                          <NavItem>
-                            <NavLink href="#">
-                              Settings
-                              <div className="ms-auto badge bg-success">New</div>
-                            </NavLink>
-                          </NavItem>
-                          <NavItem>
-                            <NavLink href="#">
-                              Messages
-                              <div className="ms-auto badge bg-warning">512</div>
-                            </NavLink>
-                          </NavItem>
-                          <NavItem>
-                            <NavLink href="#">Logs</NavLink>
-                          </NavItem>
-                        </Nav>
-                      </PerfectScrollbar>
-                    </div>
+                  </div>
+                  <div className="p-2">
                     <Nav vertical>
-                      <NavItem className="nav-item-divider mb-0" />
-                    </Nav>
-                    <div className="grid-menu grid-menu-2col">
-                      <Row className="g-0">
-                        <Col sm="6">
-                          <Button
-                            className="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2"
-                            outline
-                            color="warning"
-                          >
-                            <i className="pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2">
-                              {' '}
-                            </i>
-                            Message Inbox
-                          </Button>
-                        </Col>
-                        <Col sm="6">
-                          <Button
-                            className="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2"
-                            outline
-                            color="danger"
-                          >
-                            <i className="pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2">
-                              {' '}
-                            </i>
-                            <b>Support Tickets</b>
-                          </Button>
-                        </Col>
-                      </Row>
-                    </div>
-                    <Nav vertical>
-                      <NavItem className="nav-item-divider" />
-                      <NavItem className="nav-item-btn text-center">
-                        <Button size="sm" className="btn-wide" color="primary">
-                          Open Messages
-                        </Button>
+                      <NavItem>
+                        <NavLink href="#/admin/users" className="small text-secondary py-2">
+                          <i className="pe-7s-users me-2 text-primary" /> Quản lý tài khoản
+                        </NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink href="#/coordinator/attendance" className="small text-secondary py-2">
+                          <i className="pe-7s-note2 me-2 text-primary" /> Nghiệp vụ bán trú
+                        </NavLink>
                       </NavItem>
                     </Nav>
-                  </DropdownMenu>
-                </UncontrolledButtonDropdown>
-              </div>
-              <div className="widget-content-left  ms-3 header-user-info">
-                <div className="widget-heading fw-semibold text-dark">Thu Hà (MGR)</div>
-                <div className="widget-subheading text-muted small">Điều Phối Viên Bán Trú</div>
-              </div>
-              <div className="widget-content-right header-user-info ms-3">
-                <span className="badge rounded-pill bg-light text-primary border px-2 py-1 small">
-                  08:30 AM
-                </span>
-              </div>
+                  </div>
+                  <div className="p-3 border-top text-center bg-light">
+                    <Button
+                      color="danger"
+                      size="sm"
+                      className="btn-apple-secondary text-danger w-100 fw-bold border-danger-subtle"
+                      onClick={handleLogout}
+                    >
+                      Đăng Xuất (Logout)
+                    </Button>
+                  </div>
+                </DropdownMenu>
+              </UncontrolledButtonDropdown>
+            </div>
+            <div className="widget-content-left ms-3 header-user-info">
+              <div className="widget-heading fw-semibold text-dark">{displayName}</div>
+              <div className="widget-subheading text-muted small">{displayRole}</div>
+            </div>
+            <div className="widget-content-right header-user-info ms-3">
+              <span className={`badge rounded-pill bg-${getRoleBadgeColor(roleCode)}-subtle text-${getRoleBadgeColor(roleCode)} border px-2 py-1 small fw-medium`}>
+                {roleCode}
+              </span>
             </div>
           </div>
         </div>
-      </Fragment>
-    );
-  }
+      </div>
+    </Fragment>
+  );
 }
-
-export default UserBox;

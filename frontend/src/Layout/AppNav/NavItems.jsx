@@ -41,11 +41,6 @@ export const UserAccessNav = [
     label: 'Quản Lý Người Dùng',
     to: '/admin/users',
   },
-  {
-    icon: 'pe-7s-lock',
-    label: 'Cổng Đăng Nhập',
-    to: '/login',
-  },
 ];
 
 export const MainNav = [

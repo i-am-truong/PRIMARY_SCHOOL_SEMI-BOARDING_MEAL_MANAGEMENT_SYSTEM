@@ -1,5 +1,6 @@
-import { Fragment } from 'react';
+import { Fragment, Suspense, lazy } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 import cx from 'classnames';
 
 import { useResizeDetector } from 'react-resize-detector';
@@ -10,9 +11,13 @@ import AppSidebar from '../../Layout/AppSidebar';
 import AppFooter from '../../Layout/AppFooter';
 import ThemeOptions from '../../Layout/ThemeOptions';
 import useDarkModeSync from '../../hooks/useDarkModeSync';
+import SuspenseFallback from '../../Layout/AppMain/SuspenseFallback';
+
+const LoginScreen = lazy(() => import('../../pages/Auth/LoginScreen'));
 
 export default function Main() {
   useDarkModeSync();
+  const location = useLocation();
   const colorScheme = useSelector((s) => s.ThemeOptions.colorScheme);
   const enableFixedHeader = useSelector((s) => s.ThemeOptions.enableFixedHeader);
   const enableFixedSidebar = useSelector((s) => s.ThemeOptions.enableFixedSidebar);
@@ -22,6 +27,15 @@ export default function Main() {
   const enablePageTabsAlt = useSelector((s) => s.ThemeOptions.enablePageTabsAlt);
 
   const { width, ref } = useResizeDetector();
+
+  // Full-screen isolation for Login portal (No Header, No Sidebar, No Footer)
+  if (location.pathname === '/login') {
+    return (
+      <Suspense fallback={<SuspenseFallback type="ball-pulse-rise" />}>
+        <LoginScreen />
+      </Suspense>
+    );
+  }
 
   return (
     <Fragment>

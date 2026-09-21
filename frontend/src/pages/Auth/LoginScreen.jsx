@@ -31,12 +31,20 @@ export default function LoginScreen() {
       const data = await AuthService.login({ username, password });
       setSuccessMsg(`Đăng nhập thành công! Chào mừng ${data.user.fullName}`);
       setTimeout(() => {
-        if (data.user.role === 'ADM') {
-          navigate('/admin/users');
-        } else {
-          navigate('/coordinator/attendance');
+        switch (data.user.role) {
+          case 'ADM':
+            navigate('/admin/users');
+            break;
+          case 'ACC':
+            navigate('/coordinator/reconciliation');
+            break;
+          case 'MGR':
+          case 'PAR':
+          default:
+            navigate('/coordinator/attendance');
+            break;
         }
-      }, 600);
+      }, 500);
     } catch (err) {
       setErrorMsg(err.message || 'Tên đăng nhập hoặc mật khẩu không chính xác');
     } finally {
