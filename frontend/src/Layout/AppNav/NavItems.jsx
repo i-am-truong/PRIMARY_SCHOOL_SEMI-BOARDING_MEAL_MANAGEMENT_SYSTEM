@@ -35,6 +35,19 @@ export const SemiBoardingNav = [
   },
 ];
 
+export const UserAccessNav = [
+  {
+    icon: 'pe-7s-users',
+    label: 'Quản Lý Người Dùng',
+    to: '/admin/users',
+  },
+  {
+    icon: 'pe-7s-lock',
+    label: 'Cổng Đăng Nhập',
+    to: '/login',
+  },
+];
+
 export const MainNav = [
   {
     icon: 'pe-7s-rocket',

@@ -3,16 +3,17 @@ import { render, screen } from '@testing-library/react';
 import AppFooter from './index';
 
 describe('<AppFooter />', () => {
-  it('renders the four demo footer links', () => {
+  it('renders school meal management branding and version', () => {
     render(<AppFooter />);
 
-    for (const label of ['Footer Link 1', 'Footer Link 2', 'Footer Link 3', 'Footer Link 4']) {
-      expect(screen.getByRole('button', { name: new RegExp(label, 'i') })).toBeInTheDocument();
-    }
+    expect(screen.getByText(/Hệ Thống Quản Lý Bán Trú Tiểu Học/i)).toBeInTheDocument();
+    expect(screen.getByText(/Phiên bản 1.0 \(MVP\)/i)).toBeInTheDocument();
   });
 
-  it('renders the NEW badge next to the last link', () => {
+  it('renders technical support contact and online status badge', () => {
     render(<AppFooter />);
-    expect(screen.getByText('NEW')).toBeInTheDocument();
+
+    expect(screen.getByText(/024.3823.xxxx/i)).toBeInTheDocument();
+    expect(screen.getByText('Hệ Thống Trực Tuyến')).toBeInTheDocument();
   });
 });

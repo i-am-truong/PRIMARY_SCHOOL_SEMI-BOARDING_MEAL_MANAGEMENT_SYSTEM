@@ -24,6 +24,10 @@ const ReceivingScreen = lazy(() => import('../pages/Coordinator/ReceivingScreen'
 const DistributionScreen = lazy(() => import('../pages/Coordinator/DistributionScreen'));
 const ReconciliationScreen = lazy(() => import('../pages/Coordinator/ReconciliationScreen'));
 
+// User & Access Management Screens (Domain 6)
+const LoginScreen = lazy(() => import('../pages/Auth/LoginScreen'));
+const UserManagementScreen = lazy(() => import('../pages/Admin/UserManagementScreen'));
+
 const lazyRoute = (Component, type = 'ball-pulse-rise') => (
   <Suspense fallback={<SuspenseFallback type={type} />}>
     <Component />
@@ -49,6 +53,10 @@ export default function demoRoutes() {
       <Route path="/coordinator/receiving" element={lazyRoute(ReceivingScreen)} />
       <Route path="/coordinator/distribution" element={lazyRoute(DistributionScreen)} />
       <Route path="/coordinator/reconciliation" element={lazyRoute(ReconciliationScreen)} />
+
+      {/* User & Access Management Routes (Domain 6) */}
+      <Route path="/login" element={lazyRoute(LoginScreen)} />
+      <Route path="/admin/users" element={lazyRoute(UserManagementScreen)} />
 
       <Route path="/" element={<Navigate to="/coordinator/attendance" replace />} />
     </>

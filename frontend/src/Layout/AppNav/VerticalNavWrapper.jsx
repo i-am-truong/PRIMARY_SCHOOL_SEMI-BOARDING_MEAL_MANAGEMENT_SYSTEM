@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { Link, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEnableMobileMenu } from '../../reducers/ThemeOptions';
-import { UpgradeNav, SemiBoardingNav, MainNav, ComponentsNav, FormsNav, WidgetsNav, ChartsNav } from './NavItems';
+import { UpgradeNav, SemiBoardingNav, UserAccessNav, MainNav, ComponentsNav, FormsNav, WidgetsNav, ChartsNav } from './NavItems';
 
 const SubMenu = ({ item, toggleMobileSidebar }) => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
@@ -82,6 +82,9 @@ const Nav = () => {
         {/* UpgradeNav hidden for clean professional look */}
         <h5 className="app-sidebar__heading text-primary fw-bold">QUẢN LÝ BÁN TRÚ (MGR)</h5>
         <ul className="metismenu-container">{renderMenu(SemiBoardingNav)}</ul>
+
+        <h5 className="app-sidebar__heading text-primary fw-bold">USER & ACCESS MANAGEMENT</h5>
+        <ul className="metismenu-container">{renderMenu(UserAccessNav)}</ul>
 
         <h5 className="app-sidebar__heading">MENU</h5>
         <ul className="metismenu-container">{renderMenu(MainNav)}</ul>
