@@ -17,13 +17,13 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.js'],
     css: false,
-    include: ['src/**/*.{test,spec}.{js,jsx}'],
+    include: ['src/**/*.{test,spec}.{js,jsx,ts,tsx}'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],
-      include: ['src/**/*.{js,jsx}'],
+      include: ['src/**/*.{js,jsx,ts,tsx}'],
       exclude: [
-        'src/**/*.{test,spec}.{js,jsx}',
+        'src/**/*.{test,spec}.{js,jsx,ts,tsx}',
         'src/assets/**',
         'src/polyfills.*',
         'src/serviceWorker.*',
