@@ -428,4 +428,116 @@ export class ApiClient {
       };
     }
   }
+
+  // ==========================================================
+  // 7. Domain 2: Menus & Dishes API (CRUD & Single-stage Approval)
+  // ==========================================================
+
+  public static async getDishes(params?: { category?: string; search?: string }) {
+    const q = new URLSearchParams();
+    if (params?.category) q.append('category', params.category);
+    if (params?.search) q.append('search', params.search);
+    const queryString = q.toString() ? `?${q.toString()}` : '';
+    return await this.request<{ success: boolean; data: any[] }>(`/menus/dishes${queryString}`);
+  }
+
+  public static async createDish(payload: {
+    name: string;
+    category?: string;
+    description?: string;
+    calories?: number;
+    allergens?: string[];
+  }) {
+    return await this.request<{ success: boolean; data: any; message: string }>('/menus/dishes', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  }
+
+  public static async updateDish(
+    id: string,
+    payload: {
+      name?: string;
+      category?: string;
+      description?: string;
+      calories?: number;
+      allergens?: string[];
+    }
+  ) {
+    return await this.request<{ success: boolean; data: any; message: string }>(`/menus/dishes/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(payload),
+    });
+  }
+
+  public static async deleteDish(id: string) {
+    return await this.request<{ success: boolean; message: string }>(`/menus/dishes/${id}`, {
+      method: 'DELETE',
+    });
+  }
+
+  public static async getWeeklyMenuWithDrafts(startDate?: string) {
+    const q = new URLSearchParams();
+    if (startDate) q.append('startDate', startDate);
+    q.append('includeDrafts', 'true');
+    return await this.request<{ success: boolean; data: any[] }>(`/menus/weekly?${q.toString()}`);
+  }
+
+  public static async createMenu(payload: {
+    serveDate: string;
+    title: string;
+    description?: string;
+    dishIds: string[];
+  }) {
+    return await this.request<{ success: boolean; data: any; message: string }>('/menus', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  }
+
+  public static async updateMenu(
+    id: string,
+    payload: {
+      title?: string;
+      description?: string;
+      dishIds?: string[];
+    }
+  ) {
+    return await this.request<{ success: boolean; data: any; message: string }>(`/menus/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(payload),
+    });
+  }
+
+  public static async deleteMenu(id: string) {
+    return await this.request<{ success: boolean; message: string }>(`/menus/${id}`, {
+      method: 'DELETE',
+    });
+  }
+
+  public static async submitMenuForApproval(id: string) {
+    return await this.request<{ success: boolean; data: any; message: string }>(`/menus/${id}/submit-approval`, {
+      method: 'PATCH',
+    });
+  }
+
+  public static async approveMenu(id: string, note?: string) {
+    return await this.request<{ success: boolean; data: any; message: string }>(`/menus/${id}/approve`, {
+      method: 'PATCH',
+      body: JSON.stringify({ note }),
+    });
+  }
+
+  public static async rejectMenu(id: string, reason: string) {
+    return await this.request<{ success: boolean; data: any; message: string }>(`/menus/${id}/reject`, {
+      method: 'PATCH',
+      body: JSON.stringify({ reason }),
+    });
+  }
+
+  public static async resetMenuToDraft(id: string) {
+    return await this.request<{ success: boolean; data: any; message: string }>(`/menus/${id}/reset-draft`, {
+      method: 'PATCH',
+    });
+  }
 }

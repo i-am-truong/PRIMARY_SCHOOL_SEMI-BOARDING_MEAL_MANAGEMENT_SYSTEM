@@ -45,6 +45,11 @@ export const ParentPortalNav = [
 
 export const UserAccessNav = [
   {
+    icon: 'pe-7s-coffee',
+    label: 'Thực Đơn & Phê Duyệt',
+    to: '/admin/menus',
+  },
+  {
     icon: 'pe-7s-users',
     label: 'Quản Lý Người Dùng',
     to: '/admin/users',

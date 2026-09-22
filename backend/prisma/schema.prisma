@@ -33,6 +33,13 @@ enum InvoiceStatus {
   OVERDUE
 }
 
+enum MenuStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+}
+
 model User {
   id           String    @id @default(uuid())
   email        String    @unique
@@ -86,20 +93,29 @@ model AllergyRecord {
 }
 
 model Menu {
-  id          String      @id @default(uuid())
-  serveDate   DateTime    @unique
-  title       String
-  description String?
-  dishes      MenuDish[]
-  createdAt   DateTime    @default(now())
+  id             String      @id @default(uuid())
+  serveDate      DateTime    @unique
+  title          String
+  description    String?
+  status         MenuStatus  @default(DRAFT)
+  approvalNote   String?
+  approvedAt     DateTime?
+  approvedBy     String?
+  dishes         MenuDish[]
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @default(now()) @updatedAt
 }
 
 model Dish {
   id          String      @id @default(uuid())
   name        String      @unique
+  category    String?     @default("MAIN") // MAIN, SOUP, VEG, DESSERT
+  description String?
   calories    Int?
   allergens   String[]
   menus       MenuDish[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @default(now()) @updatedAt
 }
 
 model MenuDish {

@@ -27,6 +27,7 @@ const ReconciliationScreen = lazy(() => import('../pages/Coordinator/Reconciliat
 // User & Access Management Screens (Domain 6)
 const LoginScreen = lazy(() => import('../pages/Auth/LoginScreen'));
 const UserManagementScreen = lazy(() => import('../pages/Admin/UserManagementScreen'));
+const MenuManagementScreen = lazy(() => import('../pages/Admin/MenuManagementScreen'));
 
 // Parent Portal Screen (Domain 7)
 const ParentPortalScreen = lazy(() => import('../pages/Parent/ParentPortalScreen'));
@@ -57,9 +58,10 @@ export default function demoRoutes() {
       <Route path="/coordinator/distribution" element={lazyRoute(DistributionScreen)} />
       <Route path="/coordinator/reconciliation" element={lazyRoute(ReconciliationScreen)} />
 
-      {/* User & Access Management Routes (Domain 6) */}
+      {/* User & Access Management Routes (Domain 6) & Menu Planning (Domain 2) */}
       <Route path="/login" element={lazyRoute(LoginScreen)} />
       <Route path="/admin/users" element={lazyRoute(UserManagementScreen)} />
+      <Route path="/admin/menus" element={lazyRoute(MenuManagementScreen)} />
 
       {/* Parent Portal Routes (Domain 7) */}
       <Route path="/parent/portal" element={lazyRoute(ParentPortalScreen)} />
