@@ -22,8 +22,9 @@
       "@modules/*": ["src/modules/*"],
       "@database/*": ["src/database/*"]
     },
+    "types": ["node", "jest"],
     "rootDir": "./src"
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
+  "exclude": ["node_modules", "dist", "test"]
 }
