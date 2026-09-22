@@ -1,63 +1,28 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Link, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEnableMobileMenu } from '../../reducers/ThemeOptions';
-import { UpgradeNav, SemiBoardingNav, ParentPortalNav, UserAccessNav, MainNav, ComponentsNav, FormsNav, WidgetsNav, ChartsNav } from './NavItems';
+import {
+  SemiBoardingNav,
+  MenuNutritionNav,
+  ParentPortalNav,
+  SystemAdminNav,
+} from './NavItems';
 
-const SubMenu = ({ item, toggleMobileSidebar }) => {
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+const MenuItem = ({ item, toggleMobileSidebar }) => {
   const location = useLocation();
-
-  const toggleSubMenu = (e) => {
-    if (!item.to || item.content) {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsSubMenuOpen(!isSubMenuOpen);
-    } else if (item.to && !item.external) {
-      toggleMobileSidebar();
-    }
-  };
-
-  const hasSubmenu = item.content && item.content.length > 0;
-
-  // Determine if the parent or any child is active
-  const isActive =
-    location.pathname === item.to ||
-    (hasSubmenu && item.content.some((child) => child.to === location.pathname));
-
-  const LinkComponent = item.external ? 'a' : Link;
-  const linkProps = item.external
-    ? { href: item.to, target: '_blank', rel: 'noopener noreferrer' }
-    : { to: item.to || '#' };
+  const isActive = location.pathname === item.to;
 
   return (
     <li className={`metismenu-item ${isActive ? 'active' : ''}`}>
-      <LinkComponent
-        {...linkProps}
+      <Link
+        to={item.to || '#'}
         className={`metismenu-link ${isActive ? 'active' : ''}`}
-        onClick={toggleSubMenu}
+        onClick={toggleMobileSidebar}
       >
         <i className={`metismenu-icon ${item.icon}`} />
-        {item.label}
-        {hasSubmenu && (
-          <i className={`metismenu-state-icon pe-7s-angle-${isSubMenuOpen ? 'up' : 'down'}`} />
-        )}
-      </LinkComponent>
-      {hasSubmenu && (
-        <ul className={`metismenu-container ${isSubMenuOpen ? 'visible' : ''}`}>
-          {item.content.map((child, i) => (
-            <li key={i} className="metismenu-item">
-              <Link
-                to={child.to}
-                className={`metismenu-link ${location.pathname === child.to ? 'active' : ''}`}
-                onClick={toggleMobileSidebar}
-              >
-                {child.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+        <span className="metismenu-label-text">{item.label}</span>
+      </Link>
     </li>
   );
 };
@@ -65,6 +30,7 @@ const SubMenu = ({ item, toggleMobileSidebar }) => {
 const Nav = () => {
   const enableMobileMenu = useSelector((s) => s.ThemeOptions.enableMobileMenu);
   const dispatch = useDispatch();
+
   const toggleMobileSidebar = () => {
     if (enableMobileMenu) {
       dispatch(setEnableMobileMenu(false));
@@ -73,36 +39,35 @@ const Nav = () => {
 
   const renderMenu = (items) =>
     items.map((item, i) => (
-      <SubMenu key={i} item={item} toggleMobileSidebar={toggleMobileSidebar} />
+      <MenuItem key={i} item={item} toggleMobileSidebar={toggleMobileSidebar} />
     ));
 
   return (
     <Fragment>
-      <div className="vertical-nav-menu">
-        {/* UpgradeNav hidden for clean professional look */}
-        <h5 className="app-sidebar__heading text-primary fw-bold">QUẢN LÝ BÁN TRÚ (MGR)</h5>
-        <ul className="metismenu-container">{renderMenu(SemiBoardingNav)}</ul>
+      <div className="vertical-nav-menu apple-clean-nav">
+        {/* Nhóm 1: Vận hành bán trú */}
+        <div className="app-sidebar-section">
+          <div className="app-sidebar-section-title">VẬN HÀNH BÁN TRÚ</div>
+          <ul className="metismenu-container">{renderMenu(SemiBoardingNav)}</ul>
+        </div>
 
-        <h5 className="app-sidebar__heading text-success fw-bold">PHỤ HUYNH HỌC SINH (PAR)</h5>
-        <ul className="metismenu-container">{renderMenu(ParentPortalNav)}</ul>
+        {/* Nhóm 2: Thực đơn & Dinh dưỡng */}
+        <div className="app-sidebar-section">
+          <div className="app-sidebar-section-title">THỰC ĐƠN & DINH DƯỠNG</div>
+          <ul className="metismenu-container">{renderMenu(MenuNutritionNav)}</ul>
+        </div>
 
-        <h5 className="app-sidebar__heading text-primary fw-bold">USER & ACCESS MANAGEMENT</h5>
-        <ul className="metismenu-container">{renderMenu(UserAccessNav)}</ul>
+        {/* Nhóm 3: Phụ huynh học sinh */}
+        <div className="app-sidebar-section">
+          <div className="app-sidebar-section-title">PHỤ HUYNH HỌC SINH</div>
+          <ul className="metismenu-container">{renderMenu(ParentPortalNav)}</ul>
+        </div>
 
-        <h5 className="app-sidebar__heading">MENU</h5>
-        <ul className="metismenu-container">{renderMenu(MainNav)}</ul>
-
-        <h5 className="app-sidebar__heading">UI Components</h5>
-        <ul className="metismenu-container">{renderMenu(ComponentsNav)}</ul>
-
-        <h5 className="app-sidebar__heading">Dashboard Widgets</h5>
-        <ul className="metismenu-container">{renderMenu(WidgetsNav)}</ul>
-
-        <h5 className="app-sidebar__heading">Forms</h5>
-        <ul className="metismenu-container">{renderMenu(FormsNav)}</ul>
-
-        <h5 className="app-sidebar__heading">Charts</h5>
-        <ul className="metismenu-container">{renderMenu(ChartsNav)}</ul>
+        {/* Nhóm 4: Quản trị hệ thống */}
+        <div className="app-sidebar-section">
+          <div className="app-sidebar-section-title">QUẢN TRỊ HỆ THỐNG</div>
+          <ul className="metismenu-container">{renderMenu(SystemAdminNav)}</ul>
+        </div>
       </div>
     </Fragment>
   );

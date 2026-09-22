@@ -458,59 +458,59 @@ App Root (/)
 
 The application delivers purpose-built interfaces tailored to each stakeholder's operational environment:
 
-### 1. School Administrator — Executive Cockpit (`ADM`)
+### 1. Classroom Attendance Roll Call & Cutoff Ledger — Coordinator Portal (`MGR`)
 
-Monitors overall school meal operations, attendance completion rates across classrooms, and system health alerts:
+Monitors actual student headcount per classroom, enforces the strict 08:30 AM cutoff deadline, highlights dietary allergy declarations, and manages authorized roster unlocks:
 
-![Admin Dashboard: Tổng quan vận hành bán trú](screenshots/s1.png)
+![Classroom Attendance Roll Call & Cutoff Ledger](screenshots/s1.png)
 
 > **Key Capabilities:**
 >
-> - **Operational KPIs:** Real-time tracking of confirmed student meals, locked classroom count, and total required raw preparation weight.
-> - **Grade-Level Completion:** Visual bar breakdown tracking roll-call progress across classes (1A to 5C).
-> - **Quick Shortcuts:** Direct navigation to rosters, portioning rules, and audit logs.
+> - **Granular Classroom Tracking:** Real-time roll-call status across grade cohorts (Class 1A, 1B, 2A,...), tracking confirmed meal participants vs. excused absences eligible for fee credits.
+> - **High-Visibility Allergen Indicators:** Color-coded dietary warning badges (*Seafood*, *Peanuts*, *Eggs*) alerting staff to distribute segregated meal trays.
+> - **One-Touch Workflow Handover:** *"Tính Nhu Cầu Bếp"* action directly transfers final attendance headcounts to catering demand aggregation.
 
 ---
 
-### 2. Homeroom Teacher — Classroom Attendance Portal (`SCR-TCH-01`)
+### 2. Dish Master Library & Menu Management (`ADM` / `MGR`)
 
-Allows fast morning student roll call on mobile/tablet devices with allergen alerts and countdown to the 08:30 AM cutoff:
+Centralized catalog for school nutritional dish engineering, caloric accountability, and single-stage approval workflows:
 
-![SCR-TCH-01: Điểm danh bữa trưa](screenshots/s2.png)
+![Dish Master Library & Menu Management](screenshots/s2.png)
 
 > **Key Capabilities:**
 >
-> - **One-Tap Attendance:** Rapid toggling (*Ăn* / *Vắng*) with real-time class headcount totals.
-> - **Allergen Alert Chips:** High-visibility warnings (*Hải sản*, *Đậu phộng*, *Sữa*) to prevent contamination.
-> - **Cutoff Countdown:** Live timer counting down to `08:30:00 AM` lock deadline.
+> - **Nutritional Categorization:** Systematic classification into standardized courses (*Main Dish*, *Soup*, *Vegetables*, *Dessert*) paired with caloric indicators (kcal).
+> - **Allergen Safety Oversight:** Explicit medical allergen flagging and general safety certifications.
+> - **Apple Clean UI System:** Minimalist pill-based category filters, instant search, and streamlined CRUD modal dialogs.
 
 ---
 
-### 3. Semi-Boarding Manager — Demand & Buffer Operations (`SCR-MGR-01`)
+### 3. Parent Transparency Portal — Meal Attendance & Absence Requests (`PAR`)
 
-Aggregates attendance data across classrooms, applies dynamic safety buffers, and scales dish quantities:
+Transparent student meal tracking portal for parents to review attendance records, submit authorized meal cancellations before statutory cutoff, and verify fees:
 
-![SCR-MGR-01: Định lượng bữa trưa](screenshots/s3.png)
+![Parent Transparency Portal: Meal Tracking & Absence Requests](screenshots/s3.png)
 
 > **Key Capabilities:**
 >
-> - **Headcount Aggregation:** Real-time synchronization of submission progress across all grades.
-> - **Interactive Safety Buffer:** Dynamic slider ($0\%\text{--}10\%$) recalculating final meal count.
-> - **Ingredient Scaling:** Automatic calculation of required quantities before purchase order confirmation.
+> - **Pre-Cutoff Absence Reporting (< 08:00 AM):** Automated submission of excused absence requests with instant fee credit calculation (35,000 VND/meal).
+> - **Auditable Roll-Call Ledger:** Complete daily meal attendance inspection history.
+> - **Medical Allergy Profile:** Verified student dietary restriction records ensuring catering safety compliance.
 
 ---
 
-### 4. Kitchen / Catering Staff — Operational Floor Kiosk (`SCR-KIT-01`)
+### 4. User Directory & Access Management — Fixed 4-Role RBAC (`ADM`)
 
-High-contrast touch interface designed for kitchen tablets or wall-mounted kiosks to guide preparation and receiving:
+Enterprise access control matrix managing institutional staff and parent accounts under a strict 4-Role RBAC model (`ADM`, `MGR`, `ACC`, `PAR`):
 
-![SCR-KIT-01: Bếp ăn — Bữa trưa](screenshots/s4.png)
+![User Directory & Access Management](screenshots/s4.png)
 
 > **Key Capabilities:**
 >
-> - **Station-Segregated Workflow:** Clear line items by preparation station with assigned staff and target weights.
-> - **Large Touch Targets:** Mistake-proof buttons (*"Bắt đầu nấu"*, *"Hoàn thành"*) suited for industrial kitchen environments.
-> - **Service Deadline Countdown:** Countdown timer tracking target dispatch time (`10:45:00 AM`).
+> - **Operational Overview Metrics:** Real-time metrics tracking total accounts, active sessions, and stakeholder breakdown.
+> - **Pill-Filtered Navigation:** Rapid role filtering across System Admin (`ADM`), Coordinator (`MGR`), Accountant (`ACC`), and Parent (`PAR`).
+> - **Security & Governance:** Streamlined user provisioning, immutable role-permission bindings, and instant account suspension toggles.
 
 ---
 

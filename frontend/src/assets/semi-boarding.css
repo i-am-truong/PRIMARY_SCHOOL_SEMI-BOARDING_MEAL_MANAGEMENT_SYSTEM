@@ -239,3 +239,212 @@
   display: none !important;
 }
 
+/* ==========================================================================
+   Apple Clean Light: Header & Sidebar Overrides (DESIGN.md)
+   ========================================================================== */
+
+/* 1. Header Styling */
+.app-header {
+  background: #ffffff !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+  height: 60px !important;
+}
+
+.app-header__logo {
+  background: #ffffff !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  border-right: 1px solid #f0f0f0 !important;
+  height: 60px !important;
+}
+
+.app-header__content {
+  height: 60px !important;
+  padding: 0 24px !important;
+}
+
+/* Search Capsule */
+.apple-header-search-container {
+  display: flex;
+  align-items: center;
+}
+
+.apple-header-search-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f7;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  padding: 6px 14px;
+  width: 260px;
+  transition: all 0.2s ease;
+}
+
+.apple-header-search-wrapper:focus-within {
+  background-color: #ffffff;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12);
+  width: 320px;
+}
+
+.search-icon-svg {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.apple-header-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  color: #1d1d1f;
+  width: 100%;
+}
+
+.apple-header-search-input::placeholder {
+  color: #86868b;
+}
+
+.search-clear-btn {
+  border: none;
+  background: transparent;
+  color: #86868b;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+/* 2. Sidebar Styling */
+.app-sidebar {
+  background: #ffffff !important;
+  border-right: 1px solid #f0f0f0 !important;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.02) !important;
+}
+
+.app-sidebar__inner {
+  padding: 18px 12px 32px 12px !important;
+}
+
+/* Sidebar Section Container & Spacing */
+.app-sidebar-section {
+  margin-bottom: 22px;
+}
+
+.app-sidebar-section:first-child {
+  margin-top: 4px;
+}
+
+.app-sidebar-section-title {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  color: #94a3b8 !important; /* Elegant slate-400 */
+  text-transform: uppercase;
+  padding: 0 14px 8px 14px;
+  line-height: 1.2;
+}
+
+/* Ẩn heading mặc định cũ nếu có */
+.vertical-nav-menu .app-sidebar__heading {
+  display: none !important;
+}
+
+/* Sidebar Menu Items */
+.vertical-nav-menu .metismenu-item {
+  margin-bottom: 3px;
+}
+
+.vertical-nav-menu .metismenu-link {
+  display: flex !important;
+  align-items: center !important;
+  height: 38px !important;
+  padding: 0 14px !important;
+  color: #334155 !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  border-radius: 10px !important;
+  transition: all 0.15s ease !important;
+  text-decoration: none !important;
+}
+
+.vertical-nav-menu .metismenu-link:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.vertical-nav-menu .metismenu-link i.metismenu-icon {
+  font-size: 18px !important;
+  margin-right: 10px !important;
+  color: #64748b !important;
+  transition: color 0.15s ease !important;
+}
+
+/* Active Menu Item Pill */
+.vertical-nav-menu .metismenu-item.active > .metismenu-link,
+.vertical-nav-menu .metismenu-link.active {
+  background-color: #eff6ff !important;
+  color: #0066cc !important;
+  font-weight: 600 !important;
+}
+
+.vertical-nav-menu .metismenu-item.active > .metismenu-link i.metismenu-icon,
+.vertical-nav-menu .metismenu-link.active i.metismenu-icon {
+  color: #0066cc !important;
+}
+
+/* Userbox Header refinement */
+.header-user-info .widget-heading {
+  font-size: 14px !important;
+  color: #1d1d1f !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+}
+
+.header-user-info .widget-subheading {
+  font-size: 12px !important;
+  color: #64748b !important;
+}
+
+/* ==========================================================================
+   Closed Sidebar (Thu nhỏ): Ẩn tiêu đề chữ, thay bằng hairline divider
+   ========================================================================== */
+.closed-sidebar .app-sidebar:not(:hover) .app-sidebar-section {
+  margin-bottom: 14px !important;
+}
+
+.closed-sidebar .app-sidebar:not(:hover) .app-sidebar-section-title {
+  text-indent: -9999px !important;
+  height: 1px !important;
+  min-height: 1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  margin: 12px auto 10px auto !important;
+  width: 24px !important;
+  background-color: #e2e8f0 !important; /* Divider hairline tinh tế */
+  border-radius: 9999px !important;
+  display: block !important;
+}
+
+.closed-sidebar .app-sidebar:not(:hover) .app-sidebar-section:first-child .app-sidebar-section-title {
+  display: none !important;
+  margin: 0 !important;
+}
+
+/* Khi hover vào Sidebar thu nhỏ (mở rộng tạm thời) -> Phục hồi tiêu đề chữ chuẩn Apple */
+.closed-sidebar .app-sidebar:hover .app-sidebar-section {
+  margin-bottom: 22px !important;
+}
+
+.closed-sidebar .app-sidebar:hover .app-sidebar-section-title {
+  text-indent: 0 !important;
+  height: auto !important;
+  width: 100% !important;
+  background-color: transparent !important;
+  padding: 0 14px 8px 14px !important;
+  margin: 0 !important;
+  display: block !important;
+}
+
+
+

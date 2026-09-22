@@ -1,175 +1,60 @@
-export const UpgradeNav = [
-  {
-    icon: 'pe-7s-diamond',
-    label: 'Upgrade to PRO',
-    to: 'https://dashboardpack.com/theme-details/architectui-dashboard-react-pro?utm_source=free_theme&utm_medium=sidebar&utm_campaign=upgrade_cta&utm_content=menu_item',
-    external: true,
-  },
-];
+/**
+ * Navigation Menu Definitions for Primary School Semi-Boarding Management System
+ * Refined and professional ERP-grade labels (No awkward AI emojis or redundant timestamps)
+ */
 
+// 1. Phân hệ Vận hành bán trú hàng ngày (Domain 1 & Domain 3)
 export const SemiBoardingNav = [
   {
-    icon: 'pe-7s-note2',
-    label: 'Điểm Danh Sáng (08:30)',
+    icon: 'lnr-calendar-full',
+    label: 'Điểm Danh Lớp',
     to: '/coordinator/attendance',
   },
   {
-    icon: 'pe-7s-cart',
-    label: 'Nhu Cầu & Bắn Bếp (09:00)',
+    icon: 'lnr-chart-bars',
+    label: 'Tính Nhu Cầu Suất Ăn',
     to: '/coordinator/demand',
   },
   {
-    icon: 'pe-7s-check',
-    label: 'Kiểm Thực 3 Bước (10:30)',
+    icon: 'lnr-checkmark-circle',
+    label: 'Kiểm Thực Giao Nhận',
     to: '/coordinator/receiving',
   },
   {
-    icon: 'pe-7s-car',
-    label: 'Phân Phối Xe Đẩy (11:00)',
+    icon: 'lnr-layers',
+    label: 'Phân Phối Lớp Học',
     to: '/coordinator/distribution',
   },
   {
-    icon: 'pe-7s-graph1',
-    label: 'Đối Soát 3 Bên (13:00)',
+    icon: 'lnr-sync',
+    label: 'Đối Soát Suất Ăn',
     to: '/coordinator/reconciliation',
   },
 ];
 
+// 2. Phân hệ Thực đơn & Dinh dưỡng (Domain 2 & Domain 7)
+export const MenuNutritionNav = [
+  {
+    icon: 'lnr-dinner',
+    label: 'Thực Đơn & Phê Duyệt',
+    to: '/admin/menus',
+  },
+];
+
+// 3. Phân hệ Cổng Phụ huynh (Domain 7 / Transparency)
 export const ParentPortalNav = [
   {
-    icon: 'pe-7s-home',
-    label: 'Cổng Phụ Huynh (Parent)',
+    icon: 'lnr-heart',
+    label: 'Tra Cứu & Báo Nghỉ',
     to: '/parent/portal',
   },
 ];
 
-export const UserAccessNav = [
+// 4. Phân hệ Quản trị hệ thống & Phân quyền (Domain 6)
+export const SystemAdminNav = [
   {
-    icon: 'pe-7s-coffee',
-    label: 'Thực Đơn & Phê Duyệt',
-    to: '/admin/menus',
-  },
-  {
-    icon: 'pe-7s-users',
+    icon: 'lnr-users',
     label: 'Quản Lý Người Dùng',
     to: '/admin/users',
-  },
-];
-
-export const MainNav = [
-  {
-    icon: 'pe-7s-rocket',
-    label: 'Dashboard Example',
-    to: '/dashboards/crm',
-  },
-];
-export const ComponentsNav = [
-  {
-    icon: 'pe-7s-diamond',
-    label: 'Elements',
-    content: [
-      {
-        label: 'Standard Buttons',
-        to: '/elements/buttons-standard',
-      },
-      {
-        label: 'Dropdowns',
-        to: '/elements/dropdowns',
-      },
-      {
-        label: 'Icons',
-        to: '/elements/icons',
-      },
-      {
-        label: 'Badges',
-        to: '/elements/badges-labels',
-      },
-      {
-        label: 'Cards',
-        to: '/elements/cards',
-      },
-      {
-        label: 'List Groups',
-        to: '/elements/list-group',
-      },
-      {
-        label: 'Navigation Menus',
-        to: '/elements/navigation',
-      },
-      {
-        label: 'Utilities',
-        to: '/elements/utilities',
-      },
-    ],
-  },
-  {
-    icon: 'pe-7s-car',
-    label: 'Components',
-    content: [
-      {
-        label: 'Tabs',
-        to: '/components/tabs',
-      },
-      {
-        label: 'Notifications',
-        to: '/components/notifications',
-      },
-      {
-        label: 'Modals',
-        to: '/components/modals',
-      },
-      {
-        label: 'Progress Bar',
-        to: '/components/progress-bar',
-      },
-      {
-        label: 'Tooltips & Popovers',
-        to: '/components/tooltips-popovers',
-      },
-      {
-        label: 'Carousel',
-        to: '/components/carousel',
-      },
-      {
-        label: 'Maps',
-        to: '/components/maps',
-      },
-    ],
-  },
-  {
-    icon: 'pe-7s-display2',
-    label: 'Regular Tables',
-    to: '/tables/regular-tables',
-  },
-];
-export const FormsNav = [
-  {
-    icon: 'pe-7s-light',
-    label: 'Controls',
-    to: '/forms/controls',
-  },
-  {
-    icon: 'pe-7s-eyedropper',
-    label: 'Layouts',
-    to: '/forms/layouts',
-  },
-  {
-    icon: 'pe-7s-pendrive',
-    label: 'Validation',
-    to: '/forms/validation',
-  },
-];
-export const WidgetsNav = [
-  {
-    icon: 'pe-7s-graph2',
-    label: 'Dashboard Boxes',
-    to: '/widgets/chart-boxes-3',
-  },
-];
-export const ChartsNav = [
-  {
-    icon: 'pe-7s-graph2',
-    label: 'ChartJS',
-    to: '/charts/chartjs',
   },
 ];
