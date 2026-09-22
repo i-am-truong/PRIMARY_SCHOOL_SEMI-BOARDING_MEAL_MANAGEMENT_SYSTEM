@@ -35,6 +35,14 @@ export const SemiBoardingNav = [
   },
 ];
 
+export const ParentPortalNav = [
+  {
+    icon: 'pe-7s-home',
+    label: 'Cổng Phụ Huynh (Parent)',
+    to: '/parent/portal',
+  },
+];
+
 export const UserAccessNav = [
   {
     icon: 'pe-7s-users',
