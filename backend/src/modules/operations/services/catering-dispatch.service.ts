@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { OperationsRepository, CateringOrderRecord } from '../repositories/operations.repository';
 import { DispatchOrderDto } from '../dto/dispatch-order.dto';
 
@@ -36,7 +36,7 @@ export class CateringDispatchService {
   public async dispatchOrder(dto: DispatchOrderDto): Promise<DispatchOrderResponse> {
     const demand = await this.operationsRepository.findDemandById(dto.mealDemandId);
     if (!demand) {
-      throw new Error(`Cannot dispatch order: Meal Demand with ID ${dto.mealDemandId} not found.`);
+      throw new NotFoundException(`Cannot dispatch order: Meal Demand with ID ${dto.mealDemandId} not found.`);
     }
 
     const specialDietaryPortions = demand.specialDietaryCount;
@@ -145,7 +145,7 @@ export class CateringDispatchService {
   public async getOrderById(orderId: number): Promise<CateringOrderRecord> {
     const order = await this.operationsRepository.findOrderById(orderId);
     if (!order) {
-      throw new Error(`Catering Order with ID ${orderId} not found.`);
+      throw new NotFoundException(`Catering Order with ID ${orderId} not found.`);
     }
     return order;
   }

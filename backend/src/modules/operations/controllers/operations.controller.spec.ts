@@ -10,6 +10,8 @@ import { ReconciliationEngine } from '../services/reconciliation.engine';
 import { OperationsRepository } from '../repositories/operations.repository';
 import { PrismaService } from '../../../database/prisma/prisma.service';
 
+import { AutomatedCutoffService } from '../services/automated-cutoff.service';
+
 describe('Semi-Boarding Management (MGR) Controllers - Unit Tests', () => {
   let demandController: DemandController;
   let operationsController: OperationsController;
@@ -33,6 +35,7 @@ describe('Semi-Boarding Management (MGR) Controllers - Unit Tests', () => {
         },
         DemandService,
         CateringDispatchService,
+        AutomatedCutoffService,
         ReceivingService,
         DistributionService,
       ],
