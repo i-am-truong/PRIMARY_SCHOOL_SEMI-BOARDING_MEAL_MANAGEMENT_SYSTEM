@@ -6,6 +6,11 @@
 // 1. Phân hệ Vận hành bán trú hàng ngày (Domain 1 & Domain 3)
 export const SemiBoardingNav = [
   {
+    icon: 'lnr-license',
+    label: 'Xét Duyệt Bán Trú',
+    to: '/coordinator/eligibility',
+  },
+  {
     icon: 'lnr-calendar-full',
     label: 'Điểm Danh Lớp',
     to: '/coordinator/attendance',

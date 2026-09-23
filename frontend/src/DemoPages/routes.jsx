@@ -18,6 +18,7 @@ const Forms = lazy(() => import('./Forms'));
 const Tables = lazy(() => import('./Tables'));
 
 // Coordinator MVP Portal Screens
+const EligibilityScreen = lazy(() => import('../pages/Coordinator/EligibilityScreen'));
 const AttendanceScreen = lazy(() => import('../pages/Coordinator/AttendanceScreen'));
 const DemandOrderScreen = lazy(() => import('../pages/Coordinator/DemandOrderScreen'));
 const ReceivingScreen = lazy(() => import('../pages/Coordinator/ReceivingScreen'));
@@ -52,6 +53,7 @@ export default function demoRoutes() {
       <Route path="/dashboards/*" element={lazyRoute(Dashboards, 'ball-grid-cy')} />
 
       {/* Semi-Boarding Coordinator Portal Routes */}
+      <Route path="/coordinator/eligibility" element={lazyRoute(EligibilityScreen)} />
       <Route path="/coordinator/attendance" element={lazyRoute(AttendanceScreen)} />
       <Route path="/coordinator/demand" element={lazyRoute(DemandOrderScreen)} />
       <Route path="/coordinator/receiving" element={lazyRoute(ReceivingScreen)} />

@@ -165,6 +165,61 @@ export class ApiClient {
     });
   }
 
+  // ================= Eligibility API (Domain 1 - F-PAR-01) =================
+  public static async getEligibilityCriteria() {
+    return this.request<{ success: boolean; data: any }>('/eligibility/criteria');
+  }
+
+  public static async updateEligibilityCriteria(payload: any) {
+    return this.request<{ success: boolean; data: any; message: string }>('/eligibility/criteria', {
+      method: 'PUT',
+      body: JSON.stringify(payload),
+    });
+  }
+
+  public static async getEligibilityStudents(filter?: { className?: string; status?: string }) {
+    const params = new URLSearchParams();
+    if (filter?.className) params.append('className', filter.className);
+    if (filter?.status) params.append('status', filter.status);
+    const qs = params.toString() ? `?${params.toString()}` : '';
+    return this.request<{
+      success: boolean;
+      data: {
+        records: any[];
+        summary: {
+          total: number;
+          eligible: number;
+          ineligible: number;
+          pendingReview: number;
+          eligibleRatePct: number;
+        };
+      };
+    }>(`/eligibility/students${qs}`);
+  }
+
+  public static async runEligibilityBatch(className?: string) {
+    return this.request<{
+      success: boolean;
+      data: {
+        evaluatedCount: number;
+        eligibleCount: number;
+        ineligibleCount: number;
+        updatedRecords: any[];
+      };
+      message: string;
+    }>('/eligibility/evaluate-batch', {
+      method: 'POST',
+      body: JSON.stringify({ className }),
+    });
+  }
+
+  public static async overrideEligibility(payload: { studentId: string; status: string; reason: string }) {
+    return this.request<{ success: boolean; data: any; message: string }>('/eligibility/override', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  }
+
   // ================= Parent Portal API with Graceful Fallback =================
   // 1. Lấy danh sách con của phụ huynh
   public static async getMyChildren() {

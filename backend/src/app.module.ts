@@ -9,6 +9,7 @@ import { OperationsModule } from './modules/operations/operations.module';
 import { FinanceModule } from './modules/finance/finance.module';
 import { NutritionModule } from './modules/nutrition/nutrition.module';
 import { ReportingModule } from './modules/reporting/reporting.module';
+import { EligibilityModule } from './modules/eligibility/eligibility.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ReportingModule } from './modules/reporting/reporting.module';
     AuthModule,
     UsersModule,
     StudentsModule,
+    EligibilityModule,
     MenusModule,
     OperationsModule,
     FinanceModule,
