@@ -87,6 +87,30 @@ describe('Semi-Boarding Management (MGR) Controllers - Unit Tests', () => {
       expect(response.data.vendorAcknowledged).toBe(true);
       expect(response.data.vendorTrackingRef).toMatch(/^SF-VN-/);
     });
+
+    it('POST /demands/auto-cutoff-trigger triggers 08:45 AM cutoff and returns electronic PO result', async () => {
+      const response = await demandController.triggerAutoCutoff({ bufferRate: 0.05 });
+
+      expect(response.success).toBe(true);
+      expect(response.metadata).toHaveProperty('timestamp');
+      expect(response.data.cutoffTime).toBe('08:45 AM');
+      expect(response.data.totalPortions).toBe(1260);
+      expect(response.data.orderDispatch.orderCode).toMatch(/^PO-/);
+      expect(response.data.orderDispatch.vendorAcknowledged).toBe(true);
+      expect(response.data.orderDispatch.apiReceipt.httpStatus).toBe(200);
+      expect(response.data.orderDispatch.emailReceipt.status).toBe('SENT');
+    });
+
+    it('GET /demands/latest-po retrieves the most recent electronic PO dispatch receipt', async () => {
+      // Trigger execution first
+      await demandController.triggerAutoCutoff({ bufferRate: 0.05 });
+
+      const response = await demandController.getLatestDispatchedPO();
+      expect(response.success).toBe(true);
+      expect(response.data).not.toBeNull();
+      expect(response.data?.orderDispatch.orderCode).toMatch(/^PO-/);
+      expect(response.data?.orderDispatch.apiReceipt.trackingRef).toMatch(/^SF-VN-/);
+    });
   });
 
   describe('OperationsController (Receiving, Distribution, Reconciliation)', () => {
