@@ -38,6 +38,18 @@ export interface Dish {
   unit: string;
 }
 
+export interface ElectronicPODispatchReceipt {
+  orderCode: string;
+  vendorTrackingRef: string;
+  dispatchedAt: string;
+  apiStatus: number;
+  apiEndpoint: string;
+  emailTo: string;
+  emailSubject: string;
+  emailHtmlPreview?: string;
+  targetDeliveryTime: string;
+}
+
 export interface MealDemand {
   date: string;
   session: 'LUNCH';
@@ -50,6 +62,7 @@ export interface MealDemand {
   totalOrderedPortions: number;
   specialDietPortions: number;
   status: 'DRAFT' | 'ORDER_SENT' | 'DELIVERY_RECEIVED' | 'RECONCILED';
+  poDispatchReceipt?: ElectronicPODispatchReceipt;
   cateringVendor: {
     id: string;
     name: string;

@@ -109,6 +109,19 @@ export class ApiClient {
     });
   }
 
+  public static async triggerAutoCutoff(bufferRate?: number) {
+    return this.request<{ success: boolean; data: any }>('/demands/auto-cutoff-trigger', {
+      method: 'POST',
+      body: JSON.stringify({ bufferRate }),
+    });
+  }
+
+  public static async getLatestDispatchedPO() {
+    return this.request<{ success: boolean; data: any }>('/demands/latest-po', {
+      method: 'GET',
+    });
+  }
+
   public static async checkinVehicle(payload: ReceivingCheckinPayload) {
     return this.request<{ success: boolean; data: any }>('/operations/receiving/checkin', {
       method: 'POST',

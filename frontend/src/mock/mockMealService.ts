@@ -77,8 +77,23 @@ class MockMealService {
     this.notify();
   }
 
-  submitOrderToCatering() {
+  submitOrderToCatering(customReceipt?: any) {
     this.mealDemand.status = 'ORDER_SENT';
+    const now = new Date();
+    const trackingRef = customReceipt?.vendorTrackingRef || `SF-VN-${Math.floor(10000 + Math.random() * 90000)}`;
+    const orderCode = customReceipt?.orderCode || `PO-${now.toISOString().slice(0, 10).replace(/-/g, '')}-01`;
+    
+    this.mealDemand.poDispatchReceipt = {
+      orderCode,
+      vendorTrackingRef: trackingRef,
+      dispatchedAt: now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+      apiStatus: 200,
+      apiEndpoint: 'https://api.vincatering.vn/v2/purchase-orders/webhook',
+      emailTo: 'orders@vincatering.vn',
+      emailSubject: `[PO-ELECTRONIC] Đơn Đặt Hàng Bán Trú ${orderCode} - Giao 10:30 AM`,
+      targetDeliveryTime: '10:30 AM',
+      emailHtmlPreview: customReceipt?.emailHtmlPreview,
+    };
     this.notify();
   }
 

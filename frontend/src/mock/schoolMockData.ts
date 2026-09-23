@@ -121,7 +121,7 @@ export const INITIAL_ROSTERS: ClassRoster[] = [
 export const INITIAL_MEAL_DEMAND: MealDemand = {
   date: new Date().toISOString().split('T')[0],
   session: 'LUNCH',
-  cutoffTime: '08:30 AM',
+  cutoffTime: '08:45 AM',
   isCutoffLocked: true,
   totalPresentStudents: 742,
   staffPortions: 38,

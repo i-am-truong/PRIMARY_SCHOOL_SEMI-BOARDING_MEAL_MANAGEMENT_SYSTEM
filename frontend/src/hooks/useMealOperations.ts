@@ -89,17 +89,45 @@ export function useMealOperations() {
       }
     },
     submitOrderToCatering: async () => {
-      mockMealService.submitOrderToCatering();
       try {
-        await ApiClient.dispatchOrder({
+        const beRes = await ApiClient.dispatchOrder({
           mealDemandId: 901,
           vendorName: 'Công ty Suất ăn Công nghiệp Hà Nội SunFood',
-          targetDeliveryTime: '2026-10-12T10:30:00+07:00',
+          targetDeliveryTime: '10:30 AM',
           notes: '18 suất ăn riêng không hải sản đóng thùng dán nhãn màu vàng',
         });
+        if (beRes.success && beRes.data) {
+          const d = beRes.data;
+          mockMealService.submitOrderToCatering({
+            orderCode: d.orderCode,
+            vendorTrackingRef: d.vendorTrackingRef,
+            emailHtmlPreview: d.emailReceipt?.htmlContent,
+          });
+          return;
+        }
       } catch (err) {
         console.warn('Real BE dispatchOrder call sync:', err);
       }
+      mockMealService.submitOrderToCatering();
+    },
+    triggerAutoCutoff: async (bufferRate?: number) => {
+      try {
+        const res = await ApiClient.triggerAutoCutoff(bufferRate);
+        if (res.success && res.data) {
+          const execution = res.data;
+          const order = execution.orderDispatch;
+          mockMealService.submitOrderToCatering({
+            orderCode: order.orderCode,
+            vendorTrackingRef: order.vendorTrackingRef,
+            emailHtmlPreview: order.emailReceipt?.htmlContent,
+          });
+          return res.data;
+        }
+      } catch (err) {
+        console.warn('Real BE triggerAutoCutoff fallback:', err);
+      }
+      mockMealService.submitOrderToCatering();
+      return null;
     },
     updateInspection: async (record: any) => {
       mockMealService.updateInspection(record);
